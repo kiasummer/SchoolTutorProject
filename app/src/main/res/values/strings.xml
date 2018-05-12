@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SchoolTutor</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_students">Students</string>
+    <string name="title_search">Search</string>
+</resources>

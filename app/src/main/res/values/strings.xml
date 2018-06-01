@@ -5,7 +5,7 @@
     <string name="title_students">Students</string>
     <string name="title_search">Search</string>
 
-    <string name="time_12am">12 am</string>
+    <string name="time_0am">12 am</string>
     <string name="time_1am">1 am</string>
     <string name="time_2am">2 am</string>
     <string name="time_3am">3 am</string>

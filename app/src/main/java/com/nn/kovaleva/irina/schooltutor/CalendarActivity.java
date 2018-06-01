@@ -55,7 +55,7 @@ public class CalendarActivity extends AppCompatActivity {
     private RelativeLayout mLayout;
     private int eventIndex;
     private DateFormat md = new SimpleDateFormat("dd MMMM, yyyy", Locale.ENGLISH);
-    private TextView currentDate;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,15 +64,17 @@ public class CalendarActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
+                case R.id.navigation_profile:
+                    selectedFragment = ProfileFragment.newInstance();
+                    break;
                 case R.id.navigation_calendar:
                     selectedFragment = FragmentCalendar.newInstance();
                     break;
-                case R.id.navigation_profile:
-                    selectedFragment = ItemOneFragment.newInstance();
-                    break;
                 case R.id.navigation_students:
+                    selectedFragment = StudentsFragment.newInstance();
                     break;
                 case R.id.navigation_search:
+                    selectedFragment = SearchFragment.newInstance();
                     break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -92,6 +94,7 @@ public class CalendarActivity extends AppCompatActivity {
         //WeekView mWeekView = findViewById(R.id.weekView);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_calendar);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.constraint_layout, FragmentCalendar.newInstance());
@@ -104,8 +107,7 @@ public class CalendarActivity extends AppCompatActivity {
 //        eventIndex = mLayout.getChildCount();
         //fragmentCalendar = new FragmentCalendar();
 
-//        currentDate = (TextView)findViewById(R.id.display_current_date);
-//        currentDate.setText(md.format(Calendar.getInstance().getTime()));
+
 
 
 

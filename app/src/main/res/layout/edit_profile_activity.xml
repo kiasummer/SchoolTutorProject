@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:id="@+id/edit_profile_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_vertical"
+        android:orientation="horizontal"
+        android:background="@color/primary">
+
+        <ImageView
+            android:layout_width="@dimen/default_icon"
+            android:layout_height="@dimen/default_icon"
+            android:id="@+id/back_from_edit_profile"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_back_arrow"/>
+
+        <TextView
+            android:id="@+id/edit_profile_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="10dp"
+
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font_size_default"
+
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="Edit profile">
+        </TextView>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/edit_profile_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:gravity="center_vertical"
+                android:text="First name:"
+                android:textColor="@color/notActiveTextColorDark"
+                android:background="@drawable/border_white"
+                android:textSize="@dimen/font_micro_text"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:textSize="@dimen/font_size_default"
+                android:textColor="@color/textColorDark"
+                android:background="@drawable/border_white"
+                android:hint = "Enter your first name"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lines_height"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:background="@color/primary_dark"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,5 +1,7 @@
 package com.nn.kovaleva.irina.schooltutor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,13 +14,24 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 //import com.inducesmile.androidcalendardailyview.databases.DatabaseQuery;
 //import com.inducesmile.androidcalendardailyview.databases.EventObjects;
+import com.nn.kovaleva.irina.schooltutor.Model.Actor;
+import com.nn.kovaleva.irina.schooltutor.UI.EditProfileActivity;
+import com.nn.kovaleva.irina.schooltutor.UI.LoginActivity;
+import com.nn.kovaleva.irina.schooltutor.UI.SignUpActivity;
+import com.nn.kovaleva.irina.schooltutor.core.Controller;
+
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
@@ -31,31 +44,12 @@ import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
 
-//    private WeekView.EventClickListener mEventClickListener = new WeekView.EventClickListener() {
-//        @Override
-//        public void onEventClick(WeekViewEvent event, RectF eventRect) {
-//
-//        }
-//    };
-//
-//    private WeekView.EventLongPressListener mEventLongPressListener = new WeekView.EventLongPressListener() {
-//        @Override
-//        public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-//
-//        }
-//    };
+    private static final String TAG = "CalendarActivity";
 
+    private Intent intent;
 
-    private static final String TAG = CalendarActivity.class.getSimpleName();
-    private ImageView previousDay;
-    private ImageView nextDay;
-    private Calendar cal = Calendar.getInstance();
-    private SQLiteDatabase mQuery;
-    private FragmentCalendar fragmentCalendar;
-    private RelativeLayout mLayout;
-    private int eventIndex;
-    private DateFormat md = new SimpleDateFormat("dd MMMM, yyyy", Locale.ENGLISH);
-
+    final public static int STATUS_TUTOR = 0;
+    final public static int STATUS_STUDENT = 1;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -87,11 +81,15 @@ public class CalendarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: creating main activity");
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_calendar);
+        if (Controller.getsInstance().isIfLogIn() == false){
+            intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, 1);
+        }
 
-        //WeekView mWeekView = findViewById(R.id.weekView);
+        setContentView(R.layout.activity_calendar);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_calendar);
@@ -100,35 +98,59 @@ public class CalendarActivity extends AppCompatActivity {
         transaction.replace(R.id.constraint_layout, FragmentCalendar.newInstance());
         transaction.commit();
 
-        //mWeekView.setOnEventClickListener(mEventClickListener);
-
- //       mQuery = new SQLiteDatabase(this);
-//        mLayout = (RelativeLayout)findViewById(R.id.left_event_column);
-//        eventIndex = mLayout.getChildCount();
-        //fragmentCalendar = new FragmentCalendar();
-
-
-
-
-
-
-//        currentDate.setText(displayDateInString(cal.getTime()));
-//        displayDailyEvents();
-//        previousDay = (ImageView)findViewById(R.id.previous_day);
-//        nextDay = (ImageView)findViewById(R.id.next_day);
-//        previousDay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                previousCalendarDate();
-//            }
-//        });
-//        nextDay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nextCalendarDate();
-//            }
-//        });
-
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult: come back from login");
+        if (resultCode == RESULT_CANCELED) {
+            if (data.getStringExtra("message").equals("exit")){
+                finish();
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), data.getStringExtra("message"),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        }else if (resultCode == RESULT_OK){
+            //Actor.getsInstance().id = data.getIntExtra("id", -1);
+            Actor.getsInstance().login = data.getStringExtra("userName");
+            Actor.getsInstance().password = data.getStringExtra("password");
+            Actor.getsInstance().ifTutor = data.getBooleanExtra("ifTutor", false);
+            Actor.getsInstance().telNumber = data.getStringExtra("telNumber");
+
+            Toast toast = Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intent = new Intent(CalendarActivity.this, EditProfileActivity.class);
+            startActivity(intent);
+        } else {
+            finish();
+        }
+    }
+
+    public static void hideSoftKeyBoard(Activity activity){
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),0);
+    }
+
+    public static void hideKeyBoardTouchEveryWhere(View view, final Activity activity){
+        if (!(view instanceof EditText)){
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    CalendarActivity.hideSoftKeyBoard(activity);
+                    return false;
+                }
+            });
+        }
+
+        if (view instanceof ViewGroup){
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i ++){
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                hideKeyBoardTouchEveryWhere(innerView, activity);
+            }
+        }
+    }
 }

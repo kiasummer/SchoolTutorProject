@@ -3,8 +3,39 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#6340ff</color>
+    <color name="colorPrimaryBright">#ff9800</color>
+    <color name="colorDarkBlue">#263248</color>
+    <color name="colorLightOrange">#efb63e</color>
+
+    <!--yellow-->
+    <!--<color name="primary">#ffeb3b</color>-->
+    <!--<color name="primary_dark">#fbc02d</color>-->
+    <!--<color name="accent">#536dfe</color>-->
+
+    <!--blue-->
+    <color name="primary">#03a9f4</color>
+    <color name="primary_dark">#455ede</color>
+    <color name="accent">#ffd740</color>
+
+<!--fioletoviy-->
+    <!--<color name="primary">#9c27b0</color>-->
+    <!--<color name="primary_dark">#7b1fa2</color>-->
+    <!--<color name="accent">#ff4081</color>-->
+
+    <!--fioletoviy2-->
+    <!--<color name="primary">#673ab7</color>-->
+    <!--<color name="primary_dark">#512da8</color>-->
+    <!--<color name="accent">#ffab40</color>-->
+
+    <color name="notActiveTextColor">#E0E0E0</color>
+    <color name="textColor">#ffffff</color>
+
+    <color name="textColorDark">#000000</color>
+    <color name="notActiveTextColorDark">#7c7d7f</color>
+
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorGrey">#2e2e30</color>
     <color name="colorDivider">#aaaaaa</color>
 </resources>

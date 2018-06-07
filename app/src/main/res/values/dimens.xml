@@ -3,8 +3,22 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="calendar_vertical">60dp</dimen>
+    <dimen name="big_button_vertical">60dp</dimen>
+    <dimen name="default_vertical">80dp</dimen>
+    <dimen name="default_min_vertical">40dp</dimen>
+    <dimen name="default_icon">40dp</dimen>
     <dimen name="day_horizontal">60dp</dimen>
     <dimen name="lines_height">1dp</dimen>
     <dimen name="string_dif">20dp</dimen>
+    <dimen name="padding_left_default">60dp</dimen>
+    <dimen name="left_half_default">40dp</dimen>
+    <dimen name="padding_top_default">20dp</dimen>
+    <dimen name="corner_radius">40dp</dimen>
+
+    <dimen name="font_size_default">20sp</dimen>
+    <dimen name="font_big_text">35sp</dimen>
+    <dimen name="font_min_text">15sp</dimen>
+    <dimen name="font_micro_text">12sp</dimen>
+
 
 </resources>

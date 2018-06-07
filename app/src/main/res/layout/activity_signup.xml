@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:id="@+id/sing_up_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_vertical"
+        android:orientation="horizontal"
+        android:background="@color/primary">
+
+        <ImageView
+            android:layout_width="@dimen/default_icon"
+            android:layout_height="@dimen/default_icon"
+            android:id="@+id/back_from_sign_up"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_back_arrow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="10dp"
+
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font_size_default"
+            android:textAllCaps="true"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="@string/sign_up">
+        </TextView>
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:gravity="center_vertical"
+                android:text="Unique user name"
+                android:textColor="@color/notActiveTextColorDark"
+                android:background="@drawable/border_white"
+                android:textSize="@dimen/font_micro_text"/>
+            <EditText
+                android:id="@+id/username_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_min_vertical"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:hint="Enter your unique user name"
+                android:textSize="@dimen/font_size_default"
+                android:textColor="@color/textColorDark"
+                android:background="@drawable/border_white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lines_height"
+                android:layout_marginLeft="@dimen/left_half_default"
+                android:layout_marginRight="@dimen/left_half_default"
+                android:background="@color/primary_dark"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:gravity="center_vertical"
+                android:text="Phone number"
+                android:textColor="@color/notActiveTextColorDark"
+                android:background="@drawable/border_white"
+                android:textSize="@dimen/font_micro_text"/>
+
+            <EditText
+                android:id="@+id/phone_num_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_min_vertical"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:hint="+7-(9**)-***-**-**"
+                android:textSize="@dimen/font_size_default"
+                android:textColor="@color/textColorDark"
+                android:background="@drawable/border_white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lines_height"
+                android:layout_marginLeft="@dimen/left_half_default"
+                android:layout_marginRight="@dimen/left_half_default"
+                android:background="@color/primary_dark"/>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:gravity="center_vertical"
+                android:text="Password"
+                android:textColor="@color/notActiveTextColorDark"
+                android:background="@drawable/border_white"
+                android:textSize="@dimen/font_micro_text"/>
+
+            <EditText
+                android:id="@+id/first_password_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_min_vertical"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:hint="Enter your password"
+                android:textSize="@dimen/font_size_default"
+                android:textColor="@color/textColorDark"
+                android:background="@drawable/border_white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lines_height"
+                android:layout_marginLeft="@dimen/left_half_default"
+                android:layout_marginRight="@dimen/left_half_default"
+                android:background="@color/primary_dark"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:gravity="center_vertical"
+                android:text="Retype password"
+                android:textColor="@color/notActiveTextColorDark"
+                android:background="@drawable/border_white"
+                android:textSize="@dimen/font_micro_text"/>
+
+            <EditText
+                android:id="@+id/second_password_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_min_vertical"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:hint="Enter your password again"
+                android:textSize="@dimen/font_size_default"
+                android:textColor="@color/textColorDark"
+                android:background="@drawable/border_white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lines_height"
+                android:layout_marginLeft="@dimen/left_half_default"
+                android:layout_marginRight="@dimen/left_half_default"
+                android:background="@color/primary_dark"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:gravity="center_vertical"
+                android:text="Choose your variant"
+                android:textColor="@color/notActiveTextColorDark"
+                android:background="@drawable/border_white"
+                android:textSize="@dimen/font_micro_text"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/left_half_default"
+                android:layout_marginEnd="@dimen/left_half_default"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButtonTutor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:textSize="@dimen/font_size_default"
+                    android:text="Tutor" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonStudent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:textSize="@dimen/font_size_default"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:text="Student" />
+            </RadioGroup>
+
+
+            <Button
+                android:id="@+id/btn_sing_up"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/big_button_vertical"
+                android:layout_marginRight="@dimen/padding_left_default"
+                android:layout_marginLeft="@dimen/padding_left_default"
+                android:background="@drawable/big_button_main"
+                android:layout_marginTop="20dp"
+                android:text="@string/sign_up"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/font_size_default" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+
+
+</LinearLayout>

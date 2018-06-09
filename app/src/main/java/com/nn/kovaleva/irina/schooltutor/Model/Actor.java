@@ -6,12 +6,12 @@ public class Actor {
     private static Actor sInst = null;
     public int id;
 //    public int userId;
-    public String login = "";
-    public String password = "";
+    public String login;
+    public String password;
 //    public String firstName = "";
 //    public String secondName = "";
     public boolean ifTutor;
-    public String telNumber = "";
+    public String telNumber;
 //    public ArrayList<Themes> themes = new ArrayList<>();
 //    public String address = null;
 //    public ArrayList<DurationsOfTime> times = new ArrayList<>();

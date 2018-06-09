@@ -120,6 +120,10 @@ public class CalendarActivity extends AppCompatActivity {
             Actor.getsInstance().ifTutor = data.getBooleanExtra("ifTutor", false);
             Actor.getsInstance().telNumber = data.getStringExtra("telNumber");
 
+            Actor.getsInstance().login = "aaa";
+            Actor.getsInstance().password = "aaa";
+            Actor.getsInstance().ifTutor = false;
+
             Toast toast = Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT);
             toast.show();
             Intent intent = new Intent(CalendarActivity.this, EditProfileActivity.class);

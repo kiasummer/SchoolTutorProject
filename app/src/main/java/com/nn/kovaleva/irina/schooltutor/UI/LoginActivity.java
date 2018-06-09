@@ -73,9 +73,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                     String toast;
                                     if (response != null && response.errorCode == 0) {
                                         setResult(RESULT_OK, intent);
-                                        Actor.getsInstance().login = "aaa";
-                                        Actor.getsInstance().password = "aaa";
-                                        Actor.getsInstance().ifTutor = true;
                                     } else if (response == null) {
                                         toast = "Error";
                                         intent.putExtra("message", toast);

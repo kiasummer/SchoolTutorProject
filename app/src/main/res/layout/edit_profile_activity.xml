@@ -39,39 +39,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:id="@+id/edit_profile_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
+            <LinearLayout
+                android:id="@+id/edit_profile_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="First name:"
-                android:textColor="@color/notActiveTextColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_micro_text"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:textSize="@dimen/font_size_default"
-                android:textColor="@color/textColorDark"
-                android:background="@drawable/border_white"
-                android:hint = "Enter your first name"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/lines_height"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:background="@color/primary_dark"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="First name:"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_micro_text"/>
+                <EditText
+                    android:id="@+id/first_name_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:textSize="@dimen/font_size_default"
+                    android:textColor="@color/textColorDark"
+                    android:background="@drawable/border_white"
+                    android:hint = "Enter your first name"/>
+                <View
+                    android:id="@+id/first_name_line_edit"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="@dimen/lines_height"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:background="@color/accent"/>
 
 
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/big_button_vertical"
+                android:layout_marginRight="@dimen/padding_left_default"
+                android:layout_marginLeft="@dimen/padding_left_default"
+                android:background="@drawable/big_button_main"
+                android:layout_marginTop="@dimen/default_min_vertical"
+                android:text="Save"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/font_size_default" />
         </LinearLayout>
     </ScrollView>
 

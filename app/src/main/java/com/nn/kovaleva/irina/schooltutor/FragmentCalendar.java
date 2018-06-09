@@ -86,6 +86,7 @@ public class FragmentCalendar extends Fragment implements View.OnClickListener {
             TextView hrs = new TextView(view.getContext());
             String str = ((i == 0) ? 12 : i) + ((i < 12) ? " a.m." : " p.m.");
             hrs.setText(str);
+            hrs.setId(1000 + i);
             hrs.setTextColor(Color.parseColor("#455ede")); //primary dark color
             hrs.setTextSize(16);
             hrs.setLayoutParams(layoutParamsText);

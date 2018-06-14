@@ -1,6 +1,7 @@
 package com.nn.kovaleva.irina.schooltutor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class CalendarActivity extends AppCompatActivity {
     private static final String TAG = "CalendarActivity";
 
     private Intent intent;
+    BottomNavigationView navigation;
 
     final public static int STATUS_TUTOR = 0;
     final public static int STATUS_STUDENT = 1;
@@ -59,6 +61,7 @@ public class CalendarActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
+                    ProfileFragment.status = ProfileFragment.OWNER;
                     selectedFragment = ProfileFragment.newInstance();
                     break;
                 case R.id.navigation_calendar:
@@ -84,13 +87,15 @@ public class CalendarActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: creating main activity");
         super.onCreate(savedInstanceState);
 
+        Controller.getsInstance().context = this;
+
         if (Controller.getsInstance().isIfLogIn() == false){
             intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, 1);
         }
 
         setContentView(R.layout.activity_calendar);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_calendar);
 
@@ -100,36 +105,65 @@ public class CalendarActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "onActivityResult: come back from login");
-        if (resultCode == RESULT_CANCELED) {
-            if (data.getStringExtra("message").equals("exit")){
-                finish();
-            } else {
-                Toast toast = Toast.makeText(getApplicationContext(), data.getStringExtra("message"),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                intent = new Intent(this, LoginActivity.class);
-                startActivityForResult(intent, 1);
+        Log.d(TAG, "onActivityResult: come back to main activity");
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1: {
+                if (resultCode == RESULT_CANCELED) {
+                    if (data.getStringExtra("message").equals("exit")) {
+                        finish();
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), data.getStringExtra("message"),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        intent = new Intent(this, LoginActivity.class);
+                        startActivityForResult(intent, 1);
+                    }
+                } else if (resultCode == RESULT_OK) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    if (Actor.getsInstance().firstName.equals("") || Actor.getsInstance().secondName.equals("")) {
+                        Intent intent = new Intent(this, EditProfileActivity.class);
+                        startActivityForResult(intent, 2);
+                    }
+                    navigation.setSelectedItemId(R.id.navigation_calendar);
+                } else {
+                    finish();
+                }
+                break;
             }
-        }else if (resultCode == RESULT_OK){
-            //Actor.getsInstance().id = data.getIntExtra("id", -1);
-            Actor.getsInstance().login = data.getStringExtra("userName");
-            Actor.getsInstance().password = data.getStringExtra("password");
-            Actor.getsInstance().ifTutor = data.getBooleanExtra("ifTutor", false);
-            Actor.getsInstance().telNumber = data.getStringExtra("telNumber");
-
-            Actor.getsInstance().login = "aaa";
-            Actor.getsInstance().password = "aaa";
-            Actor.getsInstance().ifTutor = false;
-
-            Toast toast = Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT);
-            toast.show();
-            Intent intent = new Intent(CalendarActivity.this, EditProfileActivity.class);
-            startActivity(intent);
-        } else {
-            finish();
+            case 2:{
+                if (resultCode == RESULT_OK){
+                    Toast.makeText(this, "All changes saved", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (requestCode == RESULT_CANCELED) {
+                        if (data.getStringExtra("message") != null) {
+                            Toast.makeText(getApplicationContext(), data.getStringExtra("message"),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                break;
+            }
+            case 3:{
+                if (resultCode == RESULT_OK){
+                    Toast.makeText(this, "All changes saved", Toast.LENGTH_SHORT).show();
+                    ProfileFragment.status = ProfileFragment.OWNER;
+                    navigation.setSelectedItemId(R.id.navigation_profile);
+                } else {
+                    if (requestCode == RESULT_CANCELED) {
+                        if (data.getStringExtra("message") != null) {
+                            Toast.makeText(this, data.getStringExtra("message"),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                break;
+            }
         }
     }
 
@@ -156,5 +190,18 @@ public class CalendarActivity extends AppCompatActivity {
                 hideKeyBoardTouchEveryWhere(innerView, activity);
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN){
+            hideKeyboard();
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 }

@@ -1,225 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:id="@+id/profile_parent">
-
+    android:layout_width="match_parent">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/calendar_vertical"
-        android:orientation="horizontal"
-        android:background="@color/primary">
-
-        <ImageView
-            android:layout_width="@dimen/default_icon"
-            android:layout_height="@dimen/default_icon"
-            android:id="@+id/back_from_profile"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/ic_back_arrow"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-
-            android:textColor="@color/textColor"
-            android:textSize="@dimen/font_size_default"
-
-            android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:text="@string/profile">
-        </TextView>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary">
-        <TextView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/border_round_dark"
-            android:textSize="@dimen/font_big_text"
-            android:text="@string/tutor"
-            android:gravity="center"
-            android:textColor="@color/textColor"
-            />
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:id="@+id/profile_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp">
+            android:layout_height="@dimen/calendar_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:background="@color/primary">
+
+            <ImageView
+                android:layout_width="@dimen/default_icon"
+                android:layout_height="@dimen/default_icon"
+                android:id="@+id/back_from_my_profile"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_back_arrow"/>
+
             <TextView
-                android:id="@+id/first_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:text="First Name"
+                android:id="@+id/profile_title_fragment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:layout_weight="2"
+
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/font_size_default"
-                android:textColor="@color/textColor" />
-            <TextView
-                android:id="@+id/patronymic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:text="Patronymic"
-                android:textSize="@dimen/font_size_default"
-                android:textColor="@color/textColor" />
-            <TextView
-                android:id="@+id/second_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:text="Second Name"
-                android:textSize="@dimen/font_size_default"
-                android:textColor="@color/textColor" />
+
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:text="My profile">
+            </TextView>
+            <ImageView
+                android:layout_width="@dimen/default_icon"
+                android:layout_height="@dimen/default_icon"
+                android:id="@+id/menu_profile_btn"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_menu_points"/>
         </LinearLayout>
 
-    </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/primary">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Subjects:"
-                android:textColor="@color/notActiveTextColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_micro_text"/>
+                android:id="@+id/title_photo"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/border_round_dark"
+                android:textSize="@dimen/font_big_text"
+                android:text="@string/tutor"
+                android:gravity="center"
+                android:textColor="@color/textColor"
+                />
 
-            <TextView
-                android:id="@+id/subjects_profile"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Subjects:"
-                android:textColor="@color/textColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_min_text"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:text="First Name"
+                    android:textSize="@dimen/font_size_default"
+                    android:textColor="@color/textColor" />
+                <!--<TextView-->
+                    <!--android:id="@+id/patronymic"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_marginEnd="@dimen/left_half_default"-->
+                    <!--android:text="Patronymic"-->
+                    <!--android:textSize="@dimen/font_size_default"-->
+                    <!--android:textColor="@color/textColor" />-->
+                <TextView
+                    android:id="@+id/second_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:text="Second Name"
+                    android:textSize="@dimen/font_size_default"
+                    android:textColor="@color/textColor" />
+                <TextView
+                    android:id="@+id/year_of_educ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:text="7 Class"
+                    android:textSize="@dimen/font_size_default"
+                    android:textColor="@color/textColor" />
+            </LinearLayout>
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Education:"
-                android:textColor="@color/notActiveTextColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_micro_text"/>
-
-            <TextView
-                android:id="@+id/education_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Education:"
-                android:textColor="@color/textColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_min_text"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Price per hour:"
-                android:textColor="@color/notActiveTextColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_micro_text"/>
-
-            <TextView
-                android:id="@+id/price_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Price per hour:"
-                android:textColor="@color/textColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_min_text"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Phone number:"
-                android:textColor="@color/notActiveTextColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_micro_text"/>
-
-            <TextView
-                android:id="@+id/telNumber_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="+79200215380"
-                android:textColor="@color/textColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_min_text"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Address:"
-                android:textColor="@color/notActiveTextColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_micro_text"/>
-
-            <TextView
-                android:id="@+id/adress_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="@dimen/left_half_default"
-                android:layout_marginEnd="@dimen/left_half_default"
-                android:gravity="center_vertical"
-                android:text="Address:"
-                android:textColor="@color/textColorDark"
-                android:background="@drawable/border_white"
-                android:textSize="@dimen/font_min_text"/>
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/subjects_profile_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Subjects:"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_micro_text"/>
+
+                <TextView
+                    android:id="@+id/subjects_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Subjects:"
+                    android:textColor="@color/textColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_min_text"/>
+
+
+                <TextView
+                    android:id="@+id/education_profile_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Education:"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_micro_text"/>
+
+                <TextView
+                    android:id="@+id/education_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Education:"
+                    android:textColor="@color/textColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_min_text"/>
+
+                <TextView
+                    android:id="@+id/price_profile_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Price per hour:"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_micro_text"/>
+
+                <TextView
+                    android:id="@+id/price_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Price per hour:"
+                    android:textColor="@color/textColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_min_text"/>
+
+                <TextView
+                    android:id="@+id/telNumber_profile_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Phone number:"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_micro_text"/>
+
+                <TextView
+                    android:id="@+id/telNumber_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="+79200215380"
+                    android:textColor="@color/textColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_min_text"/>
+
+                <TextView
+                    android:id="@+id/address_profile_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Working place:"
+                    android:textColor="@color/notActiveTextColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_micro_text"/>
+
+                <TextView
+                    android:id="@+id/address_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="@dimen/left_half_default"
+                    android:layout_marginEnd="@dimen/left_half_default"
+                    android:gravity="center_vertical"
+                    android:text="Address:"
+                    android:textColor="@color/textColorDark"
+                    android:background="@drawable/border_white"
+                    android:textSize="@dimen/font_min_text"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit_tutor"
+        android:layout_height="@dimen/fab_size_normal"
+        android:layout_width="@dimen/fab_size_normal"
+        android:layout_marginEnd="@dimen/left_half_default"
+        android:layout_marginBottom="@dimen/left_half_default"
+        android:src="@drawable/pencil"
+        android:layout_gravity="bottom|end"
+        />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_plus_tutor"
+        android:layout_height="@dimen/fab_size_normal"
+        android:layout_width="@dimen/fab_size_normal"
+        android:layout_marginEnd="@dimen/left_half_default"
+        android:layout_marginBottom="60dp"
+        android:src="@drawable/plus"
+        android:layout_gravity="center|end"
+        />
+</FrameLayout>

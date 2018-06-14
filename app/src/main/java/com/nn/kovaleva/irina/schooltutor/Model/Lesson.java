@@ -11,8 +11,8 @@ import org.json.JSONObject;
 public class Lesson extends JsonBaseResponse{
     private static final String TAG = "Lesson";
 
-    public Tutor tutor;
-    public Student student;
+    public User tutor;
+    public User student;
     public Themes theme;
     public String address;
     public String startTime;

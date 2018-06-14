@@ -16,7 +16,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.nn.kovaleva.irina.schooltutor.CalendarActivity;
+import com.nn.kovaleva.irina.schooltutor.Model.Actor;
 import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
+import com.nn.kovaleva.irina.schooltutor.Model.User;
 import com.nn.kovaleva.irina.schooltutor.R;
 import com.nn.kovaleva.irina.schooltutor.core.Controller;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.OnRequestResult;
@@ -77,13 +79,21 @@ public class SignUpActivity extends Activity implements View.OnClickListener{
                 if (checkForCorrect()) {
                     boolean ifTutor = tutorButton.isChecked();
                     Controller.getsInstance().register(userNameField.getText().toString(),
-                            firstPasswordField.getText().toString(), ifTutor, phoneNumberField.getText().toString(),
+                            firstPasswordField.getText().toString(), ifTutor,
+                            phoneNumberField.getText().toString(),
                             new OnRequestResult() {
                                 @Override
                                 public void onResponse(JsonBaseResponse response) {
                                     Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                     String toast;
                                     if (response != null && response.errorCode == 0) {
+                                        User userResponse = (User) response;
+                                        Actor.getsInstance().id = userResponse.userId;
+                                        Actor.getsInstance().login = userResponse.login;
+                                        Actor.getsInstance().password = userResponse.password;
+                                        Actor.getsInstance().telNumber = userResponse.telNumber;
+                                        Actor.getsInstance().ifTutor = userResponse.ifTutor;
+
                                         toast = "You've signed up";
                                         intent.putExtra("status", toast);
                                         setResult(RESULT_OK, intent);
@@ -99,9 +109,6 @@ public class SignUpActivity extends Activity implements View.OnClickListener{
                                     SignUpActivity.this.finish();
                                 }
                             });
-//                    Intent intent = new Intent(this, EditProfileActivity.class);
-//                    intent.putExtra("status", EditProfileActivity.ADD);
-//                    startActivityForResult(intent, 1);
                 }
                 break;
             }

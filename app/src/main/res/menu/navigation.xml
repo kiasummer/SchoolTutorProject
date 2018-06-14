@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_students"
         android:icon="@drawable/ic_action_name"
-        android:title="@string/title_students" />
+        android:title="Contacts" />
 
     <item
         android:id="@+id/navigation_search"

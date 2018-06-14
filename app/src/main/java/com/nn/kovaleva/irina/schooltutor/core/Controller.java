@@ -1,34 +1,42 @@
 package com.nn.kovaleva.irina.schooltutor.core;
 
+import android.content.Context;
 import android.nfc.Tag;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import com.nn.kovaleva.irina.schooltutor.CalendarActivity;
+import com.nn.kovaleva.irina.schooltutor.Model.Education;
 import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
 import com.nn.kovaleva.irina.schooltutor.Model.LogIn;
-import com.nn.kovaleva.irina.schooltutor.Model.Student;
-import com.nn.kovaleva.irina.schooltutor.Model.Tutor;
 import com.nn.kovaleva.irina.schooltutor.Model.User;
+import com.nn.kovaleva.irina.schooltutor.Model.UserList;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.ICommunicationManager;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.IOnRequestListener;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.OnRequestResult;
 import com.nn.kovaleva.irina.schooltutor.core.transport.CommunicationManager;
 import com.nn.kovaleva.irina.schooltutor.core.transport.data.Request;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class Controller {
 
     private static final String TAG = "Controller";
 
     private static Controller sInstance = null;
-    private boolean ifLogIn = false;
+    public boolean ifLogIn = false;
+    public Context context = null;
     private ICommunicationManager communicationManager = null;
 
     public boolean ifTutor;
 
     public Controller() {
-        communicationManager = new CommunicationManager(null);
+        communicationManager = new CommunicationManager(context);
     }
 
     private Request makeRequest(String method, String data){
@@ -44,35 +52,32 @@ public class Controller {
         logIn.userName = userName;
         logIn.password = password;
 
-        Request request = makeRequest("login", logIn.toJson().toString());
+        final Request request = makeRequest("login", logIn.toJson().toString());
         communicationManager.sendJsonRequest(request, new IOnRequestListener(){
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(ResponseCode responseCode, String response) {
-                JsonBaseResponse logRequest = null;
-                if (responseCode == ResponseCode.Ok){
-                    ifLogIn = true;
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        logRequest = new JsonBaseResponse();
-                        logRequest.fromJson(obj);
-                    } catch (JSONException e) {
-                        Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        User loginResponse = new User();
+                        loginResponse.fromJson(obj);
+                        onRequestResult.onResponse(loginResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
                     }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
                 }
-                onRequestResult.onResponse(logRequest);
             }
         });
     }
 
     public void register (String userName, String password,  boolean ifTutor, String phoneNumber,
                               final OnRequestResult onRequestResult){
-        User user;
-        if (ifTutor){
-            user = new Tutor();
-        } else {
-            user = new Student();
-        }
-        ifTutor = ifTutor;
+        final User user = new User();
         user.login = userName;
         user.password = password;
         user.ifTutor = ifTutor;
@@ -80,21 +85,108 @@ public class Controller {
 
         Request request = makeRequest("addUser", user.toJson().toString());
         communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(ResponseCode responseCode, String response) {
-                JsonBaseResponse user = null;
-                if (responseCode == ResponseCode.Ok){
-                    try{
-                        JSONObject obj = new JSONObject(response);
-                        user = new JsonBaseResponse();
-                        user.fromJson(obj);
-                    }catch (JSONException e){
-                        Log.e(TAG, "onResponse: JSONException: " +e.getMessage());
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        User userResponse = new User();
+                        userResponse.fromJson(obj);
+                        onRequestResult.onResponse(userResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
                     }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
                 }
-                onRequestResult.onResponse(user);
             }
         });
+    }
+
+//    String firstName, String patronymic, String secondName, int yearOfEducation,
+//    ArrayList<String> subjects, ArrayList<Education> educations,
+//    String address, boolean ifAtHome, int cost,
+
+    public void saveEdits(User requestUser, final OnRequestResult onRequestResult){
+        Request request = makeRequest("saveChangesProfile", requestUser.toJson().toString());
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        User userResponse = new User();
+                        userResponse.fromJson(obj);
+                        onRequestResult.onResponse(userResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+
+
+    public void getAllIntUsers(boolean ifTutor, int userId, final OnRequestResult onRequestResult){
+        final User user = new User();
+        user.ifTutor = ifTutor;
+        user.userId = userId;
+        Request request = makeRequest("getAllUsers", user.toJson().toString());
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        UserList userListResponse = new UserList();
+                        userListResponse.fromJson(obj);
+                        onRequestResult.onResponse(userListResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    public void getUserById(int id, final OnRequestResult onRequestResult){
+        Request request = makeRequest("getUserById", String.valueOf(id));
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        User user = new User();
+                        user.fromJson(obj);
+                        onRequestResult.onResponse(user);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
     }
 
     public boolean isIfLogIn() {

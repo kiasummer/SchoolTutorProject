@@ -82,7 +82,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_save_edits"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/big_button_vertical"
                 android:layout_marginRight="@dimen/padding_left_default"

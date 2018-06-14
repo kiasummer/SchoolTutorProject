@@ -1,13 +1,22 @@
 package com.nn.kovaleva.irina.schooltutor.core.transport;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 
+import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
+import com.nn.kovaleva.irina.schooltutor.core.Controller;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.ICommunicationManager;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.IOnRequestListener;
 import com.nn.kovaleva.irina.schooltutor.core.transport.data.Request;
 import com.nn.kovaleva.irina.schooltutor.server.RequestMethods;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CommunicationManager implements ICommunicationManager{
+    public static final String TAG = "CommunicationManager";
 
     Context mContext;
 
@@ -18,15 +27,29 @@ public class CommunicationManager implements ICommunicationManager{
     @Override
     public void sendJsonRequest(final Request request, final IOnRequestListener iOnRequestListener) {
         new Thread(){
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
                 String response = "{}";
+                JsonBaseResponse baseResponse = new JsonBaseResponse();
                 IOnRequestListener.ResponseCode cod = IOnRequestListener.ResponseCode.Ok;
                 if(request.method.trim().equals("login")) {
-                    response = RequestMethods.logIn(mContext, request.data);
+//                    response = RequestMethods.logIn(mContext, request.data);
+                    response = RequestMethods.logIn(Controller.getsInstance().context, request.data);
                 }
                 if(request.method.trim().equals("addUser")) {
-                    response = RequestMethods.addUser(mContext, request.data);
+//                    response = RequestMethods.addUser(mContext, request.data);
+                    response = RequestMethods.addUser(Controller.getsInstance().context, request.data);
+                }
+
+                if (request.method.trim().equals("saveChangesProfile")){
+                    response = RequestMethods.editProfile(Controller.getsInstance().context, request.data);
+                }
+                if (request.method.trim().equals("getAllUsers")){
+                    response = RequestMethods.getAllUsers(Controller.getsInstance().context, request.data);
+                }
+                if (request.method.trim().equals("getUserById")){
+                    response = RequestMethods.getUserById(Controller.getsInstance().context, request.data);
                 }
 
 //                if(request.method.trim().equals("getevent")){
@@ -65,6 +88,14 @@ public class CommunicationManager implements ICommunicationManager{
 //                if(request.method.trim().equals("getallteams")){
 //                    response = RequestMethods.giveAllTeams(mContext);
 //                }
+                try {
+                    baseResponse.fromJson(new JSONObject(response));
+                    if (baseResponse.errorCode != 0){
+                        cod = IOnRequestListener.ResponseCode.Error;
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "run: JSONException: " + e.getMessage() );
+                }
 
                 iOnRequestListener.onResponse(cod, response);
             }

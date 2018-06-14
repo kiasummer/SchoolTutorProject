@@ -1,12 +1,14 @@
 package com.nn.kovaleva.irina.schooltutor.UI.resurces;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nn.kovaleva.irina.schooltutor.R;
@@ -15,12 +17,13 @@ import java.util.ArrayList;
 
 
 public class CustomSpinnerAdapter extends BaseAdapter {
-
+    public static final String TAG = "CustomSpinnerAdapter";
 
     private Context mContext;
     private ArrayList<String> mData;
     private LayoutInflater mInflater;
     public boolean ifUsed;
+    public ViewHolder holder;
 
 
     public CustomSpinnerAdapter(Context context, ArrayList<String> data) {
@@ -46,10 +49,20 @@ public class CustomSpinnerAdapter extends BaseAdapter {
         return position;
     }
 
+    public String getSelectedString(Spinner spinner){
+        //String str = holder.name.getText().toString();
+        String str = spinner.getSelectedItem().toString();
+        if (str.equals("Choose a subject...")) {
+            return "";
+        } else{
+            return str;
+        }
+    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        Log.d(TAG, "getView: ");
 
         if (convertView == null) {
             holder = new ViewHolder();
@@ -59,14 +72,15 @@ public class CustomSpinnerAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        holder.name.setText(mData.get(position));
+        holder.logo.setImageResource(setImgResours(position));
 
-        if (!ifUsed) {
-            holder.name.setText("Choose a subject...");
-            holder.logo.setImageResource(android.R.drawable.ic_menu_edit);
-        } else {
-            holder.name.setText(mData.get(position));
-            holder.logo.setImageResource(setImgResours(position));
-        }
+//        if (!ifUsed) {
+//            holder.name.setText("Choose a subject...");
+//            holder.logo.setImageResource(android.R.drawable.ic_menu_edit);
+//        } else {
+//
+//        }
 
 
 
@@ -78,8 +92,9 @@ public class CustomSpinnerAdapter extends BaseAdapter {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        Log.d(TAG, "getDropDownView: ");
         ViewHolder holder;
-
+        ifUsed = true;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.spinner_list_drop_adapter, parent, false);
@@ -108,15 +123,18 @@ public class CustomSpinnerAdapter extends BaseAdapter {
         int imgResourceId;
         switch (position) {
             case 0:
-                imgResourceId = android.R.drawable.ic_menu_share;
+                imgResourceId = android.R.drawable.ic_menu_edit;
                 break;
             case 1:
-                imgResourceId = android.R.drawable.ic_menu_call;
+                imgResourceId = android.R.drawable.ic_menu_share;
                 break;
             case 2:
-                imgResourceId = android.R.drawable.ic_menu_camera;
+                imgResourceId = android.R.drawable.ic_menu_call;
                 break;
             case 3:
+                imgResourceId = android.R.drawable.ic_menu_camera;
+                break;
+            case 4:
                 imgResourceId = android.R.drawable.ic_menu_search;
                 break;
             default:

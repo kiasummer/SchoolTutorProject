@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.nn.kovaleva.irina.schooltutor.CalendarActivity;
 import com.nn.kovaleva.irina.schooltutor.Model.Actor;
 import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
+import com.nn.kovaleva.irina.schooltutor.Model.User;
 import com.nn.kovaleva.irina.schooltutor.R;
 import com.nn.kovaleva.irina.schooltutor.core.Controller;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.OnRequestResult;
@@ -68,10 +69,27 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                             passwordEdit.getText().toString(), new OnRequestResult() {
                                 @Override
                                 public void onResponse(JsonBaseResponse response) {
-                                    Intent intent = new Intent(LoginActivity.this,
-                                            CalendarActivity.class);
+//                                    Intent intent = new Intent(LoginActivity.this,
+//                                            CalendarActivity.class);
+
+                                    Intent intent = new Intent();
                                     String toast;
                                     if (response != null && response.errorCode == 0) {
+                                        User userResponse = (User) response;
+                                        Actor.getsInstance().id = userResponse.userId;
+                                        Actor.getsInstance().login = userResponse.login;
+                                        Actor.getsInstance().password = userResponse.password;
+                                        Actor.getsInstance().ifTutor = userResponse.ifTutor;
+                                        Actor.getsInstance().telNumber = userResponse.telNumber;
+                                        Actor.getsInstance().ifAtHome = userResponse.ifAtHome;
+                                        Actor.getsInstance().address = userResponse.address;
+                                        Actor.getsInstance().firstName = userResponse.firstName;
+                                        //Actor.getsInstance().patronymic = userResponse.patronymic;
+                                        Actor.getsInstance().secondName = userResponse.secondName;
+                                        Actor.getsInstance().yearOfEducation = userResponse.yearOfEducation;
+                                        Actor.getsInstance().themes = userResponse.themes;
+                                        Actor.getsInstance().educations = userResponse.educations;
+                                        Actor.getsInstance().cost = userResponse.cost;
                                         setResult(RESULT_OK, intent);
                                     } else if (response == null) {
                                         toast = "Error";
@@ -107,7 +125,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: activity result is called");
+        Log.d(TAG, "onActivityResult: come back to login activity");
         if (resultCode == RESULT_OK){
             Toast.makeText(this, data.getStringExtra("status"), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, CalendarActivity.class);

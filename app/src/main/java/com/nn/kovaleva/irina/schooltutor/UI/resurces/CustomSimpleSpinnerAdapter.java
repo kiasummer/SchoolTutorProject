@@ -17,6 +17,7 @@ public class CustomSimpleSpinnerAdapter extends BaseAdapter {
     private ArrayList<String> mData;
     private LayoutInflater mInflater;
     public boolean ifUsed;
+    ViewHolder holder;
 
 
     public CustomSimpleSpinnerAdapter(Context context, ArrayList<String> data) {
@@ -24,6 +25,7 @@ public class CustomSimpleSpinnerAdapter extends BaseAdapter {
         mContext = context;
         mData = data;
         ifUsed = false;
+
     }
     @Override
     public int getCount() {
@@ -37,6 +39,17 @@ public class CustomSimpleSpinnerAdapter extends BaseAdapter {
     }
 
 
+
+    public int getSelectedAgeOfEducation(){
+        String str = holder.name.getText().toString();
+        for (int i = 1; i < 12; i ++){
+            if (str.contains(String.valueOf(i))){
+                return i;
+            }
+        }
+        return 0;
+    }
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -45,8 +58,6 @@ public class CustomSimpleSpinnerAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.simple_spinner_adapter, parent, false);
@@ -54,12 +65,13 @@ public class CustomSimpleSpinnerAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
+        holder.name.setText(mData.get(position));
 
-        if (!ifUsed) {
-            holder.name.setText("Choose...");
-        } else {
-            holder.name.setText(mData.get(position));
-        }
+//        if (!ifUsed) {
+//            holder.name.setText("Choose...");
+//        } else {
+//            holder.name.setText(mData.get(position));
+//        }
 
 
 

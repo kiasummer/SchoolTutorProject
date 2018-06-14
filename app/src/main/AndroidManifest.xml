@@ -40,6 +40,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".UI.EditProfileActivity"
             android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="com.nn.kovaleva.irina.schooltutor.provider.SchoolTutorContentProvider"
+            android:authorities="com.nn.kovaleva.irina.schooltutor.database" />
     </application>
 
 </manifest>

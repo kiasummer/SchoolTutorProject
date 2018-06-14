@@ -24,14 +24,14 @@ public class Themes extends JsonBaseResponse{
 
         public String description;
 
-        public Theme getByDescription(String description){
+        public static int getIdByDescription(String description){
             Theme[] themes = Theme.values();
             for (int i = 0; i < themes.length; i ++){
                 if (themes[i].description.equals(description)){
-                    return themes[i];
+                    return i;
                 }
             }
-            return null;
+            return -1;
         }
 
         Theme(String description) {

@@ -376,9 +376,8 @@ public class RequestMethods {
                     response = "{\"message\":\"Ok\",\"errorCode\":0}";
                 }
             }
-
         } else {
-            //response = "{\"message\":\"Such account not found\",\"errorCode\":400}";
+            response = "{\"message\":\"Provider error\",\"errorCode\":400}";
         }
         return response;
     }
@@ -415,7 +414,7 @@ public class RequestMethods {
             }
 
         } else {
-            //response = "{\"message\":\"Such account not found\",\"errorCode\":400}";
+            response = "{\"message\":\"Provider error\",\"errorCode\":400}";
         }
         return response;
     }

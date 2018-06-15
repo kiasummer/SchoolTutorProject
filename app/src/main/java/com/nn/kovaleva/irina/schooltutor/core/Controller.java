@@ -30,13 +30,13 @@ public class Controller {
 
     private static Controller sInstance = null;
     public boolean ifLogIn = false;
-    public Context context = null;
+//    public Context context = null;
     private ICommunicationManager communicationManager = null;
 
     public boolean ifTutor;
 
     public Controller() {
-        communicationManager = new CommunicationManager(context);
+        communicationManager = new CommunicationManager();
     }
 
     private Request makeRequest(String method, String data){

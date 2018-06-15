@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:id="@+id/chat_activity_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_vertical"
+        android:orientation="horizontal"
+        android:background="@color/primary"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/default_icon"
+            android:layout_height="@dimen/default_icon"
+            android:id="@+id/back_from_chat"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_back_arrow"/>
+
+        <TextView
+            android:id="@+id/chat_partner_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="10dp"
+
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font_size_default"
+
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="Name">
+        </TextView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:elevation="10dp"
+        android:background="#fff"
+        android:id="@+id/text_field_chat"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/ic_magnify_search_frag"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:textSize="@dimen/font_size_default"
+            android:textColor="#000"
+            android:id="@+id/input_search"
+            android:background="@drawable/border_white"
+            android:hint="Enter message"
+            android:imeOptions="actionSearch"/>
+
+
+        <ImageView
+            android:layout_width="@dimen/default_icon"
+            android:layout_height="@dimen/default_icon"
+            android:id = "@+id/ic_magnify_search_frag"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_send"/>
+
+
+    </RelativeLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

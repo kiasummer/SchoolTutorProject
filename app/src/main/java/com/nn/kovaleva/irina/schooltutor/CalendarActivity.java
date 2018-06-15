@@ -1,6 +1,8 @@
 package com.nn.kovaleva.irina.schooltutor;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,7 +34,10 @@ import com.nn.kovaleva.irina.schooltutor.UI.EditProfileActivity;
 import com.nn.kovaleva.irina.schooltutor.UI.LoginActivity;
 import com.nn.kovaleva.irina.schooltutor.UI.SignUpActivity;
 import com.nn.kovaleva.irina.schooltutor.core.Controller;
+import com.nn.kovaleva.irina.schooltutor.core.transport.NotificationsGetting;
+import com.nn.kovaleva.irina.schooltutor.server.SchoolTutorHTTPServer;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
@@ -49,6 +54,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private Intent intent;
     BottomNavigationView navigation;
+    AlarmManager alarmManager;
 
     final public static int STATUS_TUTOR = 0;
     final public static int STATUS_STUDENT = 1;
@@ -87,7 +93,8 @@ public class CalendarActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: creating main activity");
         super.onCreate(savedInstanceState);
 
-        Controller.getsInstance().context = this;
+        SchoolTutorHTTPServer.Instance().setContext(this);
+        SchoolTutorHTTPServer.Instance().serverStart();
 
         if (Controller.getsInstance().isIfLogIn() == false){
             intent = new Intent(this, LoginActivity.class);
@@ -203,5 +210,14 @@ public class CalendarActivity extends AppCompatActivity {
     private void hideKeyboard(){
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+    }
+
+    private void restartNotify(){
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, NotificationsGetting.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
+                intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        //alarmManager.set(AlarmManager.RTC_WAKEUP, new Time(), pendingIntent);
     }
 }

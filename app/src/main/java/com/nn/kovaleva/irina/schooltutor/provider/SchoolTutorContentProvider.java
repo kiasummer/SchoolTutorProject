@@ -15,11 +15,12 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.nn.kovaleva.irina.schooltutor.provider.tables.AddressTable;
+import com.nn.kovaleva.irina.schooltutor.provider.tables.ChatTable;
 import com.nn.kovaleva.irina.schooltutor.provider.tables.EducationTable;
 import com.nn.kovaleva.irina.schooltutor.provider.tables.LessonsTable;
 //import com.nn.kovaleva.irina.schooltutor.provider.tables.StudentTable;
 //import com.nn.kovaleva.irina.schooltutor.provider.tables.SubjectTable;
-import com.nn.kovaleva.irina.schooltutor.provider.tables.TimeTable;
+//import com.nn.kovaleva.irina.schooltutor.provider.tables.TimeTable;
 import com.nn.kovaleva.irina.schooltutor.provider.tables.UserInfo;
 import com.nn.kovaleva.irina.schooltutor.provider.tables.UserSubjectTable;
 import com.nn.kovaleva.irina.schooltutor.provider.tables.UserTable;
@@ -36,7 +37,7 @@ public class SchoolTutorContentProvider extends ContentProvider{
     public static final int STUDENT_BY_ID = 5;
     public static final int ADDRESSTABLE = 6;
     public static final int ADDRESS_BY_ID = 7;
-    public static final int SUBJECTTABLE = 8;
+    public static final int CHATTABLE = 8;
     public static final int SUBJECT_BY_ID = 9;
     public static final int LESSONTABLE = 10;
     //public static final int LESSON_BY_ID = 11;
@@ -58,10 +59,12 @@ public class SchoolTutorContentProvider extends ContentProvider{
         sUriMatcher.addURI(AddressTable.AUTHORITY, AddressTable.TABLE_NAME, ADDRESSTABLE);
         sUriMatcher.addURI(EducationTable.AUTHORITY, EducationTable.TABLE_NAME, EDUCATIONTABLE);
         sUriMatcher.addURI(LessonsTable.AUTHORITY, LessonsTable.TABLE_NAME, LESSONTABLE);
+        sUriMatcher.addURI(LessonsTable.AUTHORITY, LessonsTable.TABLE_NAME, LESSONTABLE);
 //        sUriMatcher.addURI(StudentTable.AUTHORITY, StudentTable.TABLE_NAME, STUDENTTABLE);
 //        sUriMatcher.addURI(SubjectTable.AUTHORITY, SubjectTable.TABLE_NAME, SUBJECTTABLE);
-        sUriMatcher.addURI(TimeTable.AUTHORITY, TimeTable.TABLE_NAME, TIMETABLE);
+//        sUriMatcher.addURI(TimeTable.AUTHORITY, TimeTable.TABLE_NAME, TIMETABLE);
         sUriMatcher.addURI(UserInfo.AUTHORITY, UserInfo.TABLE_NAME, USERINFOTABLE);
+        sUriMatcher.addURI(ChatTable.AUTHORITY, ChatTable.TABLE_NAME, CHATTABLE);
         sUriMatcher.addURI(UserSubjectTable.AUTHORITY, UserSubjectTable.TABLE_NAME, USERSUBJECTTABLE);
 
 //        sUriMatcher.addURI(UsersTable.AUTHORITY, UsersTable.TABLE_NAME + "/#", USER_BY_ID);
@@ -118,6 +121,10 @@ public class SchoolTutorContentProvider extends ContentProvider{
             }
             case EDUCATIONTABLE:{
                 queryBuilder.setTables(EducationTable.TABLE_NAME);
+                break;
+            }
+            case CHATTABLE:{
+                queryBuilder.setTables(ChatTable.TABLE_NAME);
                 break;
             }
             default:{
@@ -182,6 +189,14 @@ public class SchoolTutorContentProvider extends ContentProvider{
                     long rowId = db.insert(EducationTable.TABLE_NAME, null, values);
                     if (rowId >= 0){
                         Uri noteUri = ContentUris.withAppendedId(EducationTable.CONTENT_URI, rowId);
+                        getContext().getContentResolver().notifyChange(noteUri, null);
+                        return noteUri;
+                    }
+                }
+                case CHATTABLE:{
+                    long rowId = db.insert(ChatTable.TABLE_NAME, null, values);
+                    if (rowId >= 0){
+                        Uri noteUri = ContentUris.withAppendedId(ChatTable.CONTENT_URI, rowId);
                         getContext().getContentResolver().notifyChange(noteUri, null);
                         return noteUri;
                     }
@@ -285,10 +300,16 @@ public class SchoolTutorContentProvider extends ContentProvider{
                 EducationTable.TABLE_NAME, EducationTable.USER_ID, EducationTable.UNIVERSITY,
                 EducationTable.FACULTY, EducationTable.ENDING_YEAR);
 
-        public static final String createTimeTable = String.format("CREATE TABLE %s " +
-                        "(%s INTEGER, %s TEXT, %s TEXT, %s INTEGER);",
-                TimeTable.TABLE_NAME, TimeTable.USER_ID, TimeTable.DAY_OF_WEEK,
-                TimeTable.START_TIME, TimeTable.END_TIME);
+        public static final String createChatTable = String.format("CREATE TABLE %s " +
+                        "(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER, " +
+                        "%s INTEGER, %s TEXT, %s TEXT);",
+                ChatTable.TABLE_NAME, ChatTable._ID,  ChatTable.AUTHOR_ID,
+                ChatTable.CLIENT_ID, ChatTable.DATE, ChatTable.TEXT);
+
+//        public static final String createTimeTable = String.format("CREATE TABLE %s " +
+//                        "(%s INTEGER, %s TEXT, %s TEXT, %s INTEGER);",
+//                TimeTable.TABLE_NAME, TimeTable.USER_ID, TimeTable.DAY_OF_WEEK,
+//                TimeTable.START_TIME, TimeTable.END_TIME);
 
 
 
@@ -304,10 +325,11 @@ public class SchoolTutorContentProvider extends ContentProvider{
             db.execSQL(createEducationTable);
             db.execSQL(createLessonTable);
             db.execSQL(createUserInfoTable);
+            db.execSQL(createChatTable);
 //            db.execSQL(createTutorTable);
 //            db.execSQL(createSubjectTable);
             db.execSQL(createUserSubjectTable);
-            db.execSQL(createTimeTable);
+//            db.execSQL(createTimeTable);
         }
 
         @Override

@@ -49,7 +49,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         this.messages.clear();
         this.users.addAll(users);
         this.messages.addAll(messages);
-        //notifyItemRangeInserted(0, users.size());
         notifyDataSetChanged();
     }
 

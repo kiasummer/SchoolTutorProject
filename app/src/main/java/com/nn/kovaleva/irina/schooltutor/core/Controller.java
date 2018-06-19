@@ -10,6 +10,8 @@ import com.nn.kovaleva.irina.schooltutor.CalendarActivity;
 import com.nn.kovaleva.irina.schooltutor.Model.ChatMessage;
 import com.nn.kovaleva.irina.schooltutor.Model.Education;
 import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
+import com.nn.kovaleva.irina.schooltutor.Model.Lesson;
+import com.nn.kovaleva.irina.schooltutor.Model.LessonsList;
 import com.nn.kovaleva.irina.schooltutor.Model.LogIn;
 import com.nn.kovaleva.irina.schooltutor.Model.MessageList;
 import com.nn.kovaleva.irina.schooltutor.Model.User;
@@ -112,6 +114,8 @@ public class Controller {
 //    ArrayList<String> subjects, ArrayList<Education> educations,
 //    String address, boolean ifAtHome, int cost,
 
+
+
     public void saveEdits(User requestUser, final OnRequestResult onRequestResult){
         Request request = makeRequest("saveChangesProfile", requestUser.toJson().toString());
         communicationManager.sendJsonRequest(request, new IOnRequestListener() {
@@ -124,6 +128,31 @@ public class Controller {
                         User userResponse = new User();
                         userResponse.fromJson(obj);
                         onRequestResult.onResponse(userResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    public void addLesson(Lesson requestLesson, final OnRequestResult onRequestResult){
+        Request request = makeRequest("addLesson", requestLesson.toJson().toString());
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
                     } else {
                         JsonBaseResponse baseResponse = new JsonBaseResponse();
                         baseResponse.fromJson(obj);
@@ -191,6 +220,32 @@ public class Controller {
 
     }
 
+    public void isFriend(int idFirst, int idSecond, final OnRequestResult onRequestResult){
+        Request request = makeRequest("isFriend", String.valueOf(idFirst)
+                + " " + String.valueOf(idSecond));
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+
     public void getChatHistory(int idFirst, int idSecond, final OnRequestResult onRequestResult){
         Request request = makeRequest("getChatHistory", String.valueOf(idFirst)
                 + " " + String.valueOf(idSecond));
@@ -241,6 +296,33 @@ public class Controller {
         });
 
     }
+
+    public void getUsersLessons(int id, boolean ifTutor, final OnRequestResult onRequestResult){
+        Request request = makeRequest("getUsersLessons", String.valueOf(id) +
+        " " + ((ifTutor) ? String.valueOf(1) : String.valueOf(0)));
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        LessonsList lessonsListResponse = new LessonsList();
+                        lessonsListResponse.fromJson(obj);
+                        onRequestResult.onResponse(lessonsListResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+
     public void sendMessage(int idAuthor, int idClient, String text, final OnRequestResult onRequestResult){
         ChatMessage message = new ChatMessage();
         message.author_id = idAuthor;

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:id="@+id/lesson_dialog_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_vertical"
+        android:orientation="horizontal"
+        android:background="@color/primary">
+
+        <TextView
+            android:id="@+id/edit_profile_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="30dp"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font_size_default"
+
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="Add lesson">
+        </TextView>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/add_lesson_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_marginStart="@dimen/left_half_default"-->
+                <!--android:layout_marginEnd="@dimen/left_half_default"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="First name:"-->
+                <!--android:textColor="@color/notActiveTextColorDark"-->
+                <!--android:background="@drawable/border_white"-->
+                <!--android:textSize="@dimen/font_micro_text"/>-->
+            <!--<EditText-->
+                <!--android:id="@+id/first_name_edit"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginStart="@dimen/left_half_default"-->
+                <!--android:layout_marginEnd="@dimen/left_half_default"-->
+                <!--android:textSize="@dimen/font_size_default"-->
+                <!--android:textColor="@color/textColorDark"-->
+                <!--android:background="@drawable/border_white"-->
+                <!--android:hint = "Enter your first name"/>-->
+            <!--<View-->
+                <!--android:id="@+id/first_name_line_edit"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_height="@dimen/lines_height"-->
+                <!--android:layout_marginStart="@dimen/left_half_default"-->
+                <!--android:layout_marginEnd="@dimen/left_half_default"-->
+                <!--android:background="@color/accent"/>-->
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

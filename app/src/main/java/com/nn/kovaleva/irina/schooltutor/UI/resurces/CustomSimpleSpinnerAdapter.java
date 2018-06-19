@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nn.kovaleva.irina.schooltutor.R;
@@ -39,6 +40,12 @@ public class CustomSimpleSpinnerAdapter extends BaseAdapter {
     }
 
 
+
+    public int getSelectedPosition(Spinner spinner){
+        //String str = holder.name.getText().toString();
+        int res = spinner.getSelectedItemPosition();
+        return res;
+    }
 
     public int getSelectedAgeOfEducation(){
         String str = holder.name.getText().toString();

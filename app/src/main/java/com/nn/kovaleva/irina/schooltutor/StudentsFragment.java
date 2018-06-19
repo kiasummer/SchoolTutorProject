@@ -79,7 +79,7 @@ public class StudentsFragment extends Fragment {
                         intent.putExtra("firstName", userName);
                         intent.putExtra("surname", userSurname);
                         intent.putExtra("partnerId", user.userId);
-                        intent.putExtra("secondId", user.userId);
+                        intent.putExtra("partnerAddress", user.address);
                         getActivity().startActivityForResult(intent, 4);
 
                         //int id = chatAdapter.getUsers().get(position).userId;

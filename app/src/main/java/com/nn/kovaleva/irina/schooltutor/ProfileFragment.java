@@ -26,6 +26,7 @@ import com.nn.kovaleva.irina.schooltutor.Model.Actor;
 import com.nn.kovaleva.irina.schooltutor.Model.Education;
 import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
 import com.nn.kovaleva.irina.schooltutor.Model.User;
+import com.nn.kovaleva.irina.schooltutor.UI.ChatActivity;
 import com.nn.kovaleva.irina.schooltutor.UI.EditProfileActivity;
 import com.nn.kovaleva.irina.schooltutor.UI.LoginActivity;
 import com.nn.kovaleva.irina.schooltutor.core.Controller;
@@ -198,7 +199,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,
                     }
 
                 } else if (status == VISITERFRIEND){
-
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    intent.putExtra("firstName", user.firstName);
+                    intent.putExtra("surname", user.secondName);
+                    intent.putExtra("partnerId", user.userId);
+                    intent.putExtra("partnerAddress", user.address);
+                    getActivity().startActivity(intent);
                 }
                 break;
             }

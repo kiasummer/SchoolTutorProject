@@ -117,4 +117,24 @@ public class User extends JsonBaseResponse {
         }
     }
 
+    public static User getUserByActor(){
+        User user = new User();
+        user.userId = Actor.getsInstance().id;
+        user.login = Actor.getsInstance().login;
+        user.password = Actor.getsInstance().password;
+        user.firstName = Actor.getsInstance().firstName;
+        user.secondName = Actor.getsInstance().secondName;
+        user.ifTutor = Actor.getsInstance().ifTutor;
+        user.telNumber = Actor.getsInstance().telNumber;
+        user.themes = Actor.getsInstance().themes;
+        user.address = Actor.getsInstance().address;
+        user.ifAtHome = Actor.getsInstance().ifAtHome;
+        user.cost = Actor.getsInstance().cost;
+        user.educations = Actor.getsInstance().educations;
+        user.yearOfEducation = Actor.getsInstance().yearOfEducation;
+
+
+        return user;
+    }
+
 }

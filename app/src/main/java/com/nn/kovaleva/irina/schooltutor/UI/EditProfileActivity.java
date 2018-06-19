@@ -975,6 +975,9 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
         if (lineEduc != null) {
             lineEduc.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark));
         }
+        if (lineCost != null){
+            lineCost.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark));
+        }
     }
 
 

@@ -129,15 +129,25 @@ public class SearchFragment extends Fragment implements TextView.OnEditorActionL
 
     }
 
-    private void openProfile(int id){
+    private void openProfile(final int id){
         Log.d(TAG, "openProfile: with id = " + id);
         Controller.getsInstance().getUserById(id, new OnRequestResult() {
             @Override
             public void onResponse(JsonBaseResponse response) {
                 if (response != null && response.errorCode == 0) {
                     //где-то здесь должна быть проверка на то, является ли учеником/учителем
+                    Controller.getsInstance().isFriend(Actor.getsInstance().id,
+                            id, new OnRequestResult() {
+                                @Override
+                                public void onResponse(JsonBaseResponse response) {
+                                    if (response.errorCode == 0){
+                                        ProfileFragment.status = ProfileFragment.VISITERFRIEND;
+                                    } else {
+                                        ProfileFragment.status = ProfileFragment.VISITER;
+                                    }
+                                }
+                            });
                     ProfileFragment.user = (User) response;
-                    ProfileFragment.status = ProfileFragment.VISITER;
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.constraint_layout, ProfileFragment.newInstance());
                     fragmentTransaction.addToBackStack(null);

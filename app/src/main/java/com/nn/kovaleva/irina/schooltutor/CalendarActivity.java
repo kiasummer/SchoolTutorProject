@@ -35,7 +35,7 @@ import com.nn.kovaleva.irina.schooltutor.UI.LoginActivity;
 import com.nn.kovaleva.irina.schooltutor.UI.SignUpActivity;
 import com.nn.kovaleva.irina.schooltutor.core.Controller;
 import com.nn.kovaleva.irina.schooltutor.core.transport.NotificationsGetting;
-import com.nn.kovaleva.irina.schooltutor.server.SchoolTutorHTTPServer;
+//import com.nn.kovaleva.irina.schooltutor.server.SchoolTutorHTTPServer;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -92,9 +92,9 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: creating main activity");
         super.onCreate(savedInstanceState);
-
-        SchoolTutorHTTPServer.Instance().setContext(this);
-        SchoolTutorHTTPServer.Instance().serverStart();
+//
+//        SchoolTutorHTTPServer.Instance().setContext(this);
+//        SchoolTutorHTTPServer.Instance().serverStart();
 
         if (Controller.getsInstance().isIfLogIn() == false){
             intent = new Intent(this, LoginActivity.class);
@@ -169,6 +169,22 @@ public class CalendarActivity extends AppCompatActivity {
                         }
                     }
                 }
+                break;
+            }
+            case 4:{
+                navigation.setSelectedItemId(R.id.navigation_students);
+//                if (resultCode == RESULT_OK){
+//                    Toast.makeText(this, "All changes saved", Toast.LENGTH_SHORT).show();
+//                    ProfileFragment.status = ProfileFragment.OWNER;
+//                    navigation.setSelectedItemId(R.id.navigation_profile);
+//                } else {
+//                    if (requestCode == RESULT_CANCELED) {
+//                        if (data.getStringExtra("message") != null) {
+//                            Toast.makeText(this, data.getStringExtra("message"),
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
                 break;
             }
         }

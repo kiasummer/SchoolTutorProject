@@ -1,5 +1,7 @@
 package com.nn.kovaleva.irina.schooltutor;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -20,10 +24,12 @@ import android.widget.Toast;
 
 import com.nn.kovaleva.irina.schooltutor.Model.Actor;
 import com.nn.kovaleva.irina.schooltutor.Model.Education;
+import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
 import com.nn.kovaleva.irina.schooltutor.Model.User;
 import com.nn.kovaleva.irina.schooltutor.UI.EditProfileActivity;
 import com.nn.kovaleva.irina.schooltutor.UI.LoginActivity;
 import com.nn.kovaleva.irina.schooltutor.core.Controller;
+import com.nn.kovaleva.irina.schooltutor.core.interfaces.OnRequestResult;
 
 import java.util.ArrayList;
 
@@ -131,6 +137,69 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,
                 break;
             }
             case R.id.fab_plus_tutor:{
+                if (status == VISITER){
+                    LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+                    View dialogView = layoutInflater.inflate(R.layout.request_dialog, null);
+                    final EditText messageField = dialogView.findViewById(R.id.message_field);
+                    messageField.setText(Actor.getsInstance().firstName + " " +
+                    Actor.getsInstance().secondName + " requests permission to chat with you" +
+                            " to agree on a lesson");
+                    AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(getActivity());
+                    mDialogBuilder.setView(dialogView);
+                    mDialogBuilder.setCancelable(true)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Controller.getsInstance().sendMessage(Actor.getsInstance().id,
+                                            user.userId, messageField.getText().toString(),
+                                            new OnRequestResult() {
+                                                @Override
+                                                public void onResponse(final JsonBaseResponse response) {
+                                                    getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            if (response != null && response.errorCode == 0) {
+                                                                Toast.makeText(getActivity(),
+                                                                        "Request send", Toast.LENGTH_SHORT).show();
+                                                            } else if (response == null) {
+                                                                Toast.makeText(getActivity(), "Error",
+                                                                        Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                if (response.errorCode != 400) {
+                                                                    Toast.makeText(getActivity(),
+                                                                            response.message, Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    AlertDialog alertDialog = mDialogBuilder.create();
+                    alertDialog.show();
+
+                    Button button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (button != null){
+                        button.setBackground(getResources().getDrawable(R.drawable.border_accent));
+                        button.setTextColor(getResources().getColor(R.color.primary_dark));
+                    }
+
+                    Button button1 = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (button1 != null){
+                        button1.setTextColor(getResources().getColor(R.color.primary_dark));
+                    }
+
+                } else if (status == VISITERFRIEND){
+
+                }
                 break;
             }
             case R.id.back_from_my_profile:{

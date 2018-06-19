@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/list_of_chats_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_vertical"
+        android:orientation="horizontal"
+        android:background="@color/primary">
+
+
+        <TextView
+            android:id="@+id/list_of_chats_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="25dp"
+
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font_size_default"
+
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="My chats">
+        </TextView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fragment_chats_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No chats"
+        android:textSize="@dimen/font_size_default"
+        android:textColor="@color/notActiveTextColorDark"
+        android:gravity="center"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view_chats"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

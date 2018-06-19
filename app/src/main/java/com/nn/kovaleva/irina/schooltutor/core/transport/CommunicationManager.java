@@ -55,15 +55,17 @@ public class CommunicationManager implements ICommunicationManager{
                 urlConnection.setConnectTimeout(1000 * 150);
                 urlConnection.setReadTimeout(1000 * 150);
                 //может убрать integer.to string
-                urlConnection.setRequestProperty("Content-Length",
-                        Integer.toString(mRequest.data.getBytes().length));
+//                urlConnection.setRequestProperty("Content-Length",
+//                        Integer.toString(mRequest.data.getBytes("UTF-8").length));
 //                    urlConnection.setRequestProperty("Content-Type", "application/octet-stream; text/html; charset=utf-8");
                 urlConnection.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
                 urlConnection.connect();
                 os = urlConnection.getOutputStream();
-                wos = new OutputStreamWriter(os, "UTF8");
+                wos = new OutputStreamWriter(os, "UTF-8");
                 wos.write(mRequest.data);
+                //wos.close();
                 wos.flush();
+
 
                 if (urlConnection.getResponseCode() == 200) { //OK
                     Log.d(TAG, "run: connection is ok");
@@ -107,79 +109,5 @@ public class CommunicationManager implements ICommunicationManager{
     public void sendJsonRequest(final Request request, final IOnRequestListener iOnRequestListener) {
         Log.d(TAG, "sendJsonRequest: ");
         new Thread(new HttpClientWorker(request, iOnRequestListener)).start();
-//        new Thread(){
-//            @RequiresApi(api = Build.VERSION_CODES.O)
-//            @Override
-//            public void run() {
-//                String response = "{}";
-//                JsonBaseResponse baseResponse = new JsonBaseResponse();
-//                IOnRequestListener.ResponseCode cod = IOnRequestListener.ResponseCode.Ok;
-//                if(request.method.trim().equals("login")) {
-////                    response = RequestMethods.logIn(mContext, request.data);
-//                    response = RequestMethods.logIn(Controller.getsInstance().context, request.data);
-//                }
-//                if(request.method.trim().equals("addUser")) {
-////                    response = RequestMethods.addUser(mContext, request.data);
-//                    response = RequestMethods.addUser(Controller.getsInstance().context, request.data);
-//                }
-//
-//                if (request.method.trim().equals("saveChangesProfile")){
-//                    response = RequestMethods.editProfile(Controller.getsInstance().context, request.data);
-//                }
-//                if (request.method.trim().equals("getAllUsers")){
-//                    response = RequestMethods.getAllUsers(Controller.getsInstance().context, request.data);
-//                }
-//                if (request.method.trim().equals("getUserById")){
-//                    response = RequestMethods.getUserById(Controller.getsInstance().context, request.data);
-//                }
-//
-////                if(request.method.trim().equals("getevent")){
-////                    response = RequestMethods.giveEvent(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("getteam")){
-////                    response = RequestMethods.giveTeam(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("getleague")){
-////                    response = RequestMethods.giveLeague(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("getfuturegames")){
-////                    response = RequestMethods.giveFutureGames(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("getpreviousgames")){
-////                    response = RequestMethods.givePreviousGames(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("changeprofileuser")){
-////                    response = RequestMethods.changeProfileUser(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("addnewevent")){
-////                    response = RequestMethods.addNewEvent(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("addnewuser")){
-////                    response = RequestMethods.addNewUser( mContext, request.data);
-////                }
-////                if(request.method.trim().equals("addnewleague")){
-////                    response = RequestMethods.addNewLeague(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("getallusers")){
-////                    response = RequestMethods.giveAllUsers(mContext);
-////                }
-////                if(request.method.trim().equals("addnewteam")){
-////                    response = RequestMethods.addNewTeam(mContext, request.data);
-////                }
-////                if(request.method.trim().equals("getallteams")){
-////                    response = RequestMethods.giveAllTeams(mContext);
-////                }
-//                try {
-//                    baseResponse.fromJson(new JSONObject(response));
-//                    if (baseResponse.errorCode != 0){
-//                        cod = IOnRequestListener.ResponseCode.Error;
-//                    }
-//                } catch (JSONException e) {
-//                    Log.e(TAG, "run: JSONException: " + e.getMessage() );
-//                }
-//
-//                iOnRequestListener.onResponse(cod, response);
-//            }
-//        }.start();
     }
 }

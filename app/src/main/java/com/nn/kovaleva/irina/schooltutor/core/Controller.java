@@ -7,9 +7,11 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.nn.kovaleva.irina.schooltutor.CalendarActivity;
+import com.nn.kovaleva.irina.schooltutor.Model.ChatMessage;
 import com.nn.kovaleva.irina.schooltutor.Model.Education;
 import com.nn.kovaleva.irina.schooltutor.Model.JsonBaseResponse;
 import com.nn.kovaleva.irina.schooltutor.Model.LogIn;
+import com.nn.kovaleva.irina.schooltutor.Model.MessageList;
 import com.nn.kovaleva.irina.schooltutor.Model.User;
 import com.nn.kovaleva.irina.schooltutor.Model.UserList;
 import com.nn.kovaleva.irina.schooltutor.core.interfaces.ICommunicationManager;
@@ -176,6 +178,85 @@ public class Controller {
                         User user = new User();
                         user.fromJson(obj);
                         onRequestResult.onResponse(user);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    public void getChatHistory(int idFirst, int idSecond, final OnRequestResult onRequestResult){
+        Request request = makeRequest("getChatHistory", String.valueOf(idFirst)
+                + " " + String.valueOf(idSecond));
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        MessageList messageListResponse = new MessageList();
+                        messageListResponse.fromJson(obj);
+                        onRequestResult.onResponse(messageListResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    public void getUsersMessages(int id, final OnRequestResult onRequestResult){
+        Request request = makeRequest("getUsersMessages", String.valueOf(id));
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        MessageList messageListResponse = new MessageList();
+                        messageListResponse.fromJson(obj);
+                        onRequestResult.onResponse(messageListResponse);
+                    } else {
+                        JsonBaseResponse baseResponse = new JsonBaseResponse();
+                        baseResponse.fromJson(obj);
+                        onRequestResult.onResponse(baseResponse);
+                    }
+                } catch (JSONException e) {
+                    Log.e(TAG, "onResponse: JSONException" + e.getMessage());
+                }
+            }
+        });
+
+    }
+    public void sendMessage(int idAuthor, int idClient, String text, final OnRequestResult onRequestResult){
+        ChatMessage message = new ChatMessage();
+        message.author_id = idAuthor;
+        message.client_id = idClient;
+        message.text = text;
+        Request request = makeRequest("sendMessage", message.toJson().toString());
+        communicationManager.sendJsonRequest(request, new IOnRequestListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(ResponseCode responseCode, String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (responseCode == ResponseCode.Ok){
+                        ChatMessage chatMessage = new ChatMessage();
+                        chatMessage.fromJson(obj);
+                        onRequestResult.onResponse(chatMessage);
                     } else {
                         JsonBaseResponse baseResponse = new JsonBaseResponse();
                         baseResponse.fromJson(obj);

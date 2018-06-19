@@ -141,6 +141,8 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
         switch (v.getId()){
             case R.id.btn_save_edits:{
                 if (readData()){
+                    user.userId = Actor.getsInstance().id;
+                    user.ifTutor = Actor.getsInstance().ifTutor;
                     Controller.getsInstance().saveEdits(user, new OnRequestResult() {
                                 @Override
                                 public void onResponse(JsonBaseResponse response) {

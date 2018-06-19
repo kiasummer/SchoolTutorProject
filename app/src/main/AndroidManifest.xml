@@ -47,9 +47,9 @@
         <activity android:name=".UI.ChatActivity"
             android:screenOrientation="portrait"/>
 
-        <provider
-            android:name="com.nn.kovaleva.irina.schooltutor.provider.SchoolTutorContentProvider"
-            android:authorities="com.nn.kovaleva.irina.schooltutor.database" />
+        <!--<provider-->
+            <!--android:name="com.nn.kovaleva.irina.schooltutor.provider.SchoolTutorContentProvider"-->
+            <!--android:authorities="com.nn.kovaleva.irina.schooltutor.database" />-->
     </application>
 
 </manifest>

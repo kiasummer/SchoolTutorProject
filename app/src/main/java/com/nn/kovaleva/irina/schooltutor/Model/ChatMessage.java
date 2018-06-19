@@ -18,8 +18,9 @@ public class ChatMessage extends JsonBaseResponse{
 
     public int author_id;
     public int client_id;
-    public String text;
-    public Date date;
+    public String text = "";
+    public Date date = new Date();
+    public boolean ifRead;
 
     private DateFormat md = new SimpleDateFormat("hh:mm dd MMMM, yyyy", Locale.ENGLISH);
 
@@ -30,6 +31,7 @@ public class ChatMessage extends JsonBaseResponse{
             obj.put("clientId", client_id);
             obj.put("text", text);
             obj.put("date", md.format(date));
+            obj.put("ifRead", ifRead);
         } catch (JSONException e) {
             Log.e(TAG, "toJson: JSONException: " + e.getMessage());
         }
@@ -43,6 +45,7 @@ public class ChatMessage extends JsonBaseResponse{
         try {
             author_id = obj.getInt("authorId");
             client_id = obj.getInt("clientId");
+            ifRead = obj.getBoolean("ifRead");
             text = obj.getString("text");
             String formatDate = obj.getString("date");
             try {

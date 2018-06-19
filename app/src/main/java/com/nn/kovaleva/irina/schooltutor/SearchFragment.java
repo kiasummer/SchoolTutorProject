@@ -149,9 +149,10 @@ public class SearchFragment extends Fragment implements TextView.OnEditorActionL
                     if (response.errorCode != 400){
                         Toast.makeText(getActivity(), response.message, Toast.LENGTH_SHORT).show();
                     } else {
-                        notFound.setText((Actor.getsInstance().ifTutor) ?
-                                "No students found" : "No tutors found");
-                        notFound.setVisibility(View.VISIBLE);
+                        Toast.makeText(getActivity(), "Not found", Toast.LENGTH_SHORT).show();
+//                        notFound.setText((Actor.getsInstance().ifTutor) ?
+//                                "No students found" : "No tutors found");
+//                        notFound.setVisibility(View.VISIBLE);
                     }
                 }
             }
